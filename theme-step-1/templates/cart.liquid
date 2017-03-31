@@ -1,0 +1,56 @@
+<section class="cart pt-5">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1 class="text-center">Your cart</h1>
+				<form action="/cart" method="post">
+					<table class="table mt-5">
+						<thead>
+							<tr>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in cart.items %}
+							<tr>
+								<td>
+									<div class="media">
+										<img class="d-flex mr-3" src="{{ item | img_url: '48x48' }}" style="max-width:3rem;">
+										<div class="media-body">
+											<h5 class="mt-0">{{ item.title }}</h5>
+											<a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn-secondary btn-sm">Remove</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									{{ item.price | money }}
+									<small class="text-muted ml-2">(€ 5.50)</small>
+								</td>
+								<td>
+									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;">
+								</td>
+								<td>
+									{{ item.line_price | money }}
+									<small class="text-muted ml-2">(€ 5.50)</small>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<h4 class="text-right mt-3">
+						Subtotal: {{ cart.total_price | money }}
+						<small class="text-muted ml-2">(€ 12.50)</small>
+					</h4>
+					<p class="text-right mt-5">
+						<a href="/" class="btn btn-link btn-lg">Continue Shopping</a>
+						<input type="submit" name="update" class="btn btn-secondary btn-lg ml-2" value="Update">
+						<input type="submit" name="checkout" class="btn btn-primary btn-lg ml-2" value="Checkout">
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

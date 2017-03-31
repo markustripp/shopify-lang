@@ -1,0 +1,24 @@
+<section class="products">
+	<div class="container">
+		<div class="row">
+			{% for product in cards-collection %}
+				<div class="col-3">
+					<div class="card">
+						<div class="card-block">
+							<a href="/products/{{ product.handle }}">
+								<img class="card-img-top img-fluid" src="{{ product.images[0] | img_url: "master" }}">
+							</a>
+							<h3 class="card-title mt-4">{{ product.title }}</h3>
+							<p class="card-text">{{ product.description }}</p>
+							<h5>
+								{{ product.price | money }}
+								<small class="text-muted ml-2">(€ 5.50)</small>
+							</h5>
+							<a href="/products/{{ product.handle }}" class="btn btn-primary mt-3">Details</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>

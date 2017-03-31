@@ -1,0 +1,25 @@
+{% include 'jumbotron' %}
+
+<section class="details pt-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-6 text-center">
+				<img src="{{ product.images[0] | img_url: "master" }}" class="img-fluid">
+			</div>
+			<div class="col-6">
+				<h2>{{ product.title }}</h2>
+				<h5>
+					{{ product.price | money }}
+					<small class="text-muted ml-2">(€ 5.50)</small>
+				</h5>
+				<p>{{ product.description }}</p>
+				<form action="/cart/add" method="post">
+					<input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+					<p>
+						<input type="submit" class="btn btn-primary btn-lg" value="Add to Cart">
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

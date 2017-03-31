@@ -1,0 +1,80 @@
+{% if section.settings.api_key %}
+  <script>
+    theme.mapKey = {{ section.settings.api_key | json }};
+  </script>
+{% endif %}
+
+<script>
+  theme.strings.addressError = {{ 'sections.map.address_error' | t | json }};
+  theme.strings.addressNoResults = {{ 'sections.map.address_no_results' | t | json }};
+  theme.strings.addressQueryLimit = {{ 'sections.map.address_query_limit_html' | t | json }};
+  theme.strings.authError = {{ 'sections.map.auth_error_html' | t | json }};
+</script>
+
+<div class="map-section" data-section-id="{{ section.id }}" data-section-type="map">
+  {% if section.settings.title != blank or section.settings.address != blank %}
+    <div class="page-width">
+      <div class="map-section__overlay-wrapper">
+        <div class="map-section__overlay">
+          {% if section.settings.map_title != blank %}
+            <h3 class="h4">{{ section.settings.map_title | escape }}</h3>
+          {% endif %}
+          {% if section.settings.address != blank %}
+            <div class="rte-setting">{{ section.settings.address }}</div>
+            {% if section.settings.show_button %}
+              <p><a href="https://maps.google.com?daddr={{ section.settings.map_address }}" class="btn btn--secondary btn--small" target="_blank">{{ 'sections.map.get_directions' | t }}</a></p>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <a class="map-section__link" href="https://www.google.ca/maps/place/{{ section.settings.map_address }}" target="_blank" aria-label="{{ section.settings.map_address }}"></a>
+  <div class="map-section__container" id="Map-{{ section.id }}" data-address-setting="{{ section.settings.map_address }}"></div>
+</div>
+
+{% schema %}
+  {
+    "name": "Map",
+    "class": "index-section index-section--flush",
+    "settings": [
+      {
+        "id": "map_title",
+        "type": "text",
+        "label": "Overlay heading",
+        "default": "Our store"
+      },
+      {
+        "id": "address",
+        "type": "richtext",
+        "label": "Text address and hours",
+        "default": "<p>123 Fake St.<br>Toronto, Canada</p><p>Mon - Fri, 10am - 9pm<br>Saturday, 11am - 9pm<br>Sunday, 11am - 5pm</p>"
+      },
+      {
+        "id": "map_address",
+        "type": "text",
+        "label": "Map address",
+        "info": "Google maps will find the exact location",
+        "default": "80 Spadina Ave, Toronto"
+      },
+      {
+        "id": "api_key",
+        "type": "text",
+        "label": "Google Maps API key",
+        "info": "If your store experiences more than 2,500 visitors a day, you’ll need to generate both [JavaScript](https://developers.google.com/maps/documentation/javascript/get-api-key) and [Geocoding](https://developers.google.com/maps/documentation/geocoding/get-api-key) API keys"
+      },
+      {
+        "id": "show_button",
+        "type": "checkbox",
+        "label": "Show 'Get directions' button",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "Map",
+        "category": "Store information"
+      }
+    ]
+  }
+{% endschema %}

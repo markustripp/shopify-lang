@@ -1,0 +1,28 @@
+<div class="list-view-item__image-column">
+  <div class="list-view-item__image-wrapper">
+    <img class="list-view-item__image" src="{{ product.featured_image.src | img_url: '95x95', scale: 2 }}" alt="{{ product.featured_image.alt | escape }}">
+  </div>
+</div>
+
+<div class="list-view-item__title-column">
+  <div class="list-view-item__title">{{ product.title }}</div>
+  {% if product.compare_at_price > product.price %}
+    <div class="list-view-item__on-sale">{{ 'products.product.on_sale' | t }}</div>
+  {% endif %}
+  {% if section.settings.show_vendor %}
+    <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
+  {% endif %}
+  {% unless product.available %}
+    <div class="list-view-item__sold-out">{{ 'products.product.sold_out' | t }}</div>
+  {% endunless %}
+</div>
+
+{% if section.settings.show_vendor %}
+  <div class="list-view-item__vendor-column small--hide">
+    <div class="list-view-item__vendor">{{ product.vendor }}</div>
+  </div>
+{% endif %}
+
+<div class="list-view-item__price-column">
+  {% include 'product-price' %}
+</div>
