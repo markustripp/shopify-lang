@@ -1,0 +1,82 @@
+<section class="cart pt-5">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1 class="text-center">Dein Warenkorb</h1>
+				<form action="/cart" method="post">
+					<table class="table mt-5">
+						<thead>
+							<tr>
+								<th>Produkt</th>
+								<th>Preis</th>
+								<th>Menge</th>
+								<th>Summe</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in cart.items %}
+							<tr>
+								<td>
+									<div class="media">
+										<img class="d-flex mr-3" src="{{ item | img_url: '48x48' }}" style="max-width:3rem;">
+										<div class="media-body">
+											<h5 class="mt-0">{{ item.title }}</h5>
+											<a href="#" data-line="{{ forloop.index }}" class="remove btn btn-secondary btn-sm">Remove</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									<span class="price">{{ item.price | money }}</span>
+									<small class="text-muted ml-2 euro"></small>
+								</td>
+								<td>
+									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;">
+								</td>
+								<td>
+									<span class="price">{{ item.line_price | money }}</span>
+									<small class="text-muted ml-2 euro"></small>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<h4 class="text-right mt-3">
+						Zwischensumme: <span class="price">{{ cart.total_price | money }}</span>
+						<small class="text-muted ml-2 euro"></small>
+					</h4>
+					<p class="text-right mt-5">
+						<a href="/?view=de" class="btn btn-link btn-lg">Weiter Einkaufen</a>
+						<button type="button" id="update" class="btn btn-secondary btn-lg ml-2">Aktualisieren</button>
+						<input type="submit" name="checkout" class="btn btn-primary btn-lg ml-2" value="Zur Kasse">
+					</p>
+				</form>
+				<script>
+					$(document).ready(function() {
+						$('.remove').on('click', function(e) {
+							e.preventDefault();
+
+							var data = {
+								line: $(e.currentTarget).data('line'),
+								quantity: 0
+							};
+							$.post('/cart/change.js', data, function() {
+								window.location.reload(true);
+							});
+						});
+
+						$('#update').on('click', function(e) {
+							e.preventDefault();
+
+							var data = $('form[action="/cart"]').serialize();
+							$.post('/cart/update.js', data, function() {
+								window.location.reload(true);
+							});
+						});
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% include 'currencies' %}

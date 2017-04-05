@@ -1,0 +1,4 @@
+{% assign lang_param = '' %}
+{% if template.suffix %}
+	{% assign lang_param = '?view=' | append:template.suffix %}
+{% endif %}

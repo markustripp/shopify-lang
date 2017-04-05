@@ -1,0 +1,13 @@
+{{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
+
+<script>
+	$(document).ready(function() {
+		$('.price').each(function() {
+			var el = $(this);
+
+			var dollar = el.text().replace(/^\D+/g, '');
+			var euro = Currency.convert(dollar, 'USD', 'EUR').toFixed(2);
+			el.next('.euro').text('(€' + euro + ')');
+		});
+	});
+</script>
