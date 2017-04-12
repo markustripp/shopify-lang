@@ -30,7 +30,8 @@
 									<small class="text-muted ml-2 euro"></small>
 								</td>
 								<td>
-									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;">
+									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;display:inline;">
+									<button type="button" class="update btn btn-secondary ml-2">Aktualisieren</button>
 								</td>
 								<td>
 									<span class="price">{{ item.line_price | money }}</span>
@@ -40,16 +41,20 @@
 							{% endfor %}
 						</tbody>
 					</table>
-					<h4 class="text-right mt-3">
-						Zwischensumme: <span class="price">{{ cart.total_price | money }}</span>
-						<small class="text-muted ml-2 euro"></small>
-					</h4>
-					<p class="text-right mt-5">
-						<a href="/?view=de" class="btn btn-link btn-lg">Weiter Einkaufen</a>
-						<button type="button" id="update" class="btn btn-secondary btn-lg ml-2">Aktualisieren</button>
-						<input type="submit" name="checkout" class="btn btn-primary btn-lg ml-2" value="Zur Kasse">
-					</p>
 				</form>
+
+				<h4 class="text-right mt-3">
+					Zwischensumme: <span class="price">{{ cart.total_price | money }}</span>
+					<small class="text-muted ml-2 euro"></small>
+				</h4>
+
+				<form class="form text-right mt-5" action="/checkout?locale=de" method="POST">
+					<input type="hidden" name="attributes[Locale]" value="de">
+
+					<a href="/?view=de" class="btn btn-link btn-lg">Weiter Einkaufen</a>
+					<input type="submit" name="checkout" class="btn btn-primary btn-lg ml-2" value="Zur Kasse">
+				</form>
+
 				<script>
 					$(document).ready(function() {
 						$('.remove').on('click', function(e) {
@@ -64,7 +69,7 @@
 							});
 						});
 
-						$('#update').on('click', function(e) {
+						$('.update').on('click', function(e) {
 							e.preventDefault();
 
 							var data = $('form[action="/cart"]').serialize();

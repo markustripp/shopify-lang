@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+{% include 'lang' %}
+<html lang="{{ lang }}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,12 +9,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		{{ 'https://code.jquery.com/jquery-3.2.1.min.js' | script_tag }}
 		{{ content_for_header }}
 	</head>
 	<body>
-		{% assign nav = 'nav' | append:template.suffix %}
-		{% include nav %}
+		{% assign navbar = 'nav' | append:template.suffix | slice:0,5 %}
+		{% include navbar %}
 
 		{{ content_for_layout }}
 	</body>

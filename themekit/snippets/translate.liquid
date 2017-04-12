@@ -1,0 +1,39 @@
+<script>
+	$(document).ready(function() {
+		var data = {
+			de: {
+				"red-circle": {
+					title: "Roter Kreis",
+					description: "Beschreibung roter Kreis"
+				},
+				"red-square": {
+					title: "Rotes Quadrat",
+					description: "Beschreibung rotes Quadrat"
+				},
+				"blue-circle": {
+					title: "Blauer Kreis",
+					description: "Beschreibung blauer Kreis"
+				},
+				"blue-square": {
+					title: "Blaues Quadrat",
+					description: "Beschreibung blaues Quadrat"
+				}
+			},
+			en: {
+				// TBD
+			}
+		};
+
+		$('.translate').each(function() {
+			var el = $(this);
+
+			var lang = el.data('lang');
+			var id = el.data('id');
+			var key = el.data('key');
+
+			if (lang && id && key) {
+				el.html(data[lang][id][key]);
+			}
+		});
+	});
+</script>

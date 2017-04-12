@@ -29,7 +29,8 @@
 									{{ item.price | money }}
 								</td>
 								<td>
-									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;">
+									<input type="number" name="updates[]" class="form-control" value="{{ item.quantity }}" style="width:5rem;display:inline;">
+									<button type="submit" name="update" class="btn btn-secondary ml-2">Update</button>
 								</td>
 								<td>
 									{{ item.line_price | money }}
@@ -43,7 +44,6 @@
 					</h4>
 					<p class="text-right mt-5">
 						<a href="/" class="btn btn-link btn-lg">Continue Shopping</a>
-						<input type="submit" name="update" class="btn btn-secondary btn-lg ml-2" value="Update">
 						<input type="submit" name="checkout" class="btn btn-primary btn-lg ml-2" value="Checkout">
 					</p>
 				</form>

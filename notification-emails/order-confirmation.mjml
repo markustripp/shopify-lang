@@ -1,0 +1,27 @@
+<mjml>
+	<mj-body>
+		<mj-container>
+			<mj-section>
+				<mj-column>
+					<mj-text>
+						{% if attributes.Locale == 'de' %}
+							<h3>Vielen Dank für Deinen Einkauf!</h3>
+							<p>
+								Hallo {{ customer.first_name }},
+								wir bereiten Deine Bestellung für den Versand vor.
+								Wir benachrichtigen Dich sobald sie unterwegs ist.
+							</p>
+						{% else %}
+							<h3>Thank you for your purchase!</h3>
+							<p>
+								Hi {{ customer.first_name }},
+								we're getting your order ready to be shipped.
+								We will notify you when it has been sent.
+							</p>
+						{% endif %}
+					</mj-text>
+				</mj-column>
+			</mj-section>
+		</mj-container>
+	</mj-body>
+</mjml>

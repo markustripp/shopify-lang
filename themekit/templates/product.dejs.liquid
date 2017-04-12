@@ -1,0 +1,40 @@
+{% include 'jumbotronde' %}
+
+<section class="details pt-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-6 text-center">
+				<img src="{{ product.images[0] | img_url: "master" }}" class="img-fluid">
+			</div>
+			<div class="col-6">
+				<h2 class="translate" data-lang="de" data-id="{{ handle }}" data-key="title">{{ product.title }}</h2>
+				<h5>
+					<span class="price">{{ product.price | money }}</span>
+					<small class="text-muted ml-2 euro"></small>
+				</h5>
+				<p class="translate" data-lang="de" data-id="{{ handle }}" data-key="description">{{ product.description }}</p>
+				<form action="/cart/add" method="post">
+					<input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+					<p>
+						<input type="submit" class="btn btn-primary btn-lg" value="In den Warenkorb">
+					</p>
+				</form>
+				<script>
+					$(document).ready(function() {
+						$('form[action="/cart/add"]').on('submit', function(e) {
+							e.preventDefault();
+
+							var data = $(e.currentTarget).serialize();
+							$.post('/cart/add.js', data, function() {
+								window.location.href = "/cart?view=de";
+							});
+						});
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% include 'currencies' %}
+{% include 'translate' %}
