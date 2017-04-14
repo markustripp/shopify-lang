@@ -1,6 +1,6 @@
 # Multi-Language Shopify Online Shop
 
-In this repository you find the sources to my article how to create a multi-language Shopify online shop. 
+In this repository you find the sources to my article on [how to create a multi-language Shopify online shop](https://medium.com/@markustripp/multi-language-shopify-online-shop-6150d07e82c7). 
 
 ### theme-html
 theme-html contains a simple HTML version of the online shop created with the Bootstrap CSS framework.
